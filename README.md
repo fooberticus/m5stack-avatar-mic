@@ -1,8 +1,9 @@
 # m5stack-avatar-mic
-マイクを使ったM5Stack Avatarの例です。
-音に合わせてAvatarが口パクしたり、傾いたりします。
 
-# 対応デバイス
+This is an example of M5Stack Avatar using a microphone.
+The Avatar will lip sync and tilt according to the sound.
+
+## supported devices
 
 - M5Stack Core2
 - M5StickC
@@ -11,29 +12,29 @@
 - M5Stack CoreS3
 - M5Stack Fire
 
-# 環境
+## environment
 
-・VSCode + PlatformIO
+- VSCode + PlatformIO
+- CLion + PlatformIO
 
-ArduinoIDEの場合は下記のように名前を変更してください。
-- srcフォルダ -> m5stack-avatar-mic
+For Arduino IDE, change the name as shown below.
+- src folder -> m5stack-avatar-mic
 - main.cpp -> m5stack-avatar-mic.ino
 
-# 動作確認済みボード・ライブラリバーョン
+## platform
 
-詳細はplatformio.iniを見てください。
+- arduino-esp32 v2.0.8 (espressif 6.2.0)
 
-# ボード
-
-- arduiono-esp32 v2.0.8(espressif 6.2.0)
-
-# ライブラリ
+## required libraries
 - M5Stack-Avatar v0.9.0
 - M5Unified v0.1.9
 
-# LICENSE
+## license
 [MIT](https://github.com/mongonta0716/m5stack-avatar-mic/blob/main/LICENSE)
 
-# Author
+## original author
 
 [Takao Akaki](https://github.com/mongonta0716)
+
+## english version
+[Fooberticus](https://github.com/fooberticus)
