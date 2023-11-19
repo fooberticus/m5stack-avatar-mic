@@ -70,7 +70,7 @@ void lipsync() {
             }
             ratio = 1.3f;
         }
-        last_lipsync_max_msec = millis(); // 無音でない場合は更新
+        last_lipsync_max_msec = millis(); // Update if not silent
     }
 
     if ((millis() - last_rotation_msec) > 350) {
