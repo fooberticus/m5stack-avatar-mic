@@ -2,6 +2,7 @@
 
 #include <M5Unified.h>
 #include <Avatar.h>
+#include <Expression.h>
 #include "fft.hpp"
 #include <cinttypes>
 
@@ -40,6 +41,9 @@ uint8_t palette_index = 0;
 
 uint32_t last_rotation_msec = 0;
 uint32_t last_lipsync_max_msec = 0;
+
+uint8_t expression_idx = 0;
+Expression expressions[6];
 
 void lipsync() {
     uint64_t level = 0;
@@ -163,9 +167,19 @@ void setup() {
     M5.Mic.begin();
 
     M5.Display.setRotation(display_rotation);
+
     avatar.setScale(scale);
     avatar.setPosition(position_top, position_left);
     avatar.init(1); // start drawing
+
+    avatar.setExpression(Expression::Neutral);
+    expressions[0] = Expression::Neutral;
+    expressions[1] = Expression::Happy;
+    expressions[2] = Expression::Doubt;
+    expressions[3] = Expression::Angry;
+    expressions[4] = Expression::Sad;
+    expressions[5] = Expression::Sleepy;
+
     cps[0] = new ColorPalette();
     cps[0]->set(COLOR_PRIMARY, TFT_BLACK);
     cps[0]->set(COLOR_BACKGROUND, TFT_YELLOW);
@@ -184,8 +198,10 @@ void setup() {
     cps[5] = new ColorPalette();
     cps[5]->set(COLOR_PRIMARY, (uint16_t) 0x303303);
     cps[5]->set(COLOR_BACKGROUND, (uint16_t) 0x00ff00);
+
     avatar.setColorPalette(*cps[first_cps]);
     last_rotation_msec = millis();
+
     M5_LOGI("setup end");
 }
 
@@ -203,19 +219,18 @@ void loop() {
         display_rotation == 1 ? display_rotation = 3 : display_rotation = 1;
         M5.Display.setRotation(display_rotation);
     } else if (M5.BtnA.wasPressed()) {
-        M5_LOGI("Push BtnA");
         palette_index++;
         if (palette_index > 5) {
             palette_index = 0;
         }
         avatar.setColorPalette(*cps[palette_index]);
     } else if (M5.BtnB.wasPressed()) {
-        if (palette_index == 0) {
-            palette_index = 5;
+        if (expression_idx == 5) {
+            expression_idx = 0;
         } else {
-            palette_index--;
+            expression_idx++;
         }
-        avatar.setColorPalette(*cps[palette_index]);
+        avatar.setExpression(expressions[expression_idx]);
     }
 
     lipsync();
